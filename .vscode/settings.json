@@ -10,5 +10,6 @@
             "database": "smart-brain",
             "username": "postgres"
         }
-    ]
+    ],
+    "git.ignoreLimitWarning": true
 }
