@@ -1,6 +1,5 @@
 import './App.css';
 import Particles from 'react-particles-js';
-import Clarifai from 'clarifai';
 import Navigation from "./components/Navigation/Navigation";
 import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -10,9 +9,6 @@ import SignIn from './components/SignIn/SignIn';
 import Register from './components/Register/Register';
 import { Component } from 'react';
 
-const app = new Clarifai.App({
- apiKey: '03ecc1108a3442959b1c045faf44c9a8'
-});
 
 const particlesOptions = {
   particles: {
@@ -81,13 +77,17 @@ this.setState({box: box});
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-    app.models
-      .predict(
-        Clarifai.FACE_DETECT_MODEL, 
-        this.state.input)
+    fetch('https://shielded-island-53805.herokuapp.com/imageurl', {
+              method: 'post',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+               input: this.state.input
+              })
+            })
+            .then(response => response.json())
         .then(response => {
           if (response) {
-            fetch('http://localhost:3005/image', {
+            fetch('https://shielded-island-53805.herokuapp.com/image', {
               method: 'put',
               headers: {'Content-Type': 'application/json'},
               body: JSON.stringify({

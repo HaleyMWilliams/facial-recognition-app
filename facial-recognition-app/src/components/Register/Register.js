@@ -23,7 +23,7 @@ onPasswordChange = (event) => {
 }
 
 onSubmitSignIn = () => {
-  fetch('http://localhost:3005/register', {
+  fetch('https://shielded-island-53805.herokuapp.com/register', {
     method: 'post',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
@@ -37,8 +37,6 @@ onSubmitSignIn = () => {
     if (user.id) {
       this.props.loadUser(user)
       this.props.onRouteChange('home');
-    } else {
-      console.log('onSubmitIsgnIn Register')
     }
   })
 }
